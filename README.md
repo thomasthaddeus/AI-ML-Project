@@ -1,7 +1,8 @@
 # AI-ML-Project
 
-initial folder structure
+## Initial Structure
 
+```bash
 ├── data
 │   ├── raw                    # Raw data, immutable
 │   ├── interim                # Extracted and cleaned data
@@ -27,4 +28,4 @@ initial folder structure
 ├── requirements.txt           # The dependencies we need to reproduce the environment, libraries etc.
 ├── setup.py                   # Makes project pip installable (pip install -e .) so src can be imported
 └── README.md                  # Project description
-
+```
