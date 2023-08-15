@@ -81,3 +81,13 @@ There are several well-established image repositories and databases that can be 
 8. **Iterative Improvement**: Gather feedback from the deployed model's performance, make necessary adjustments and updates, and continuously improve the model over time.
 
 This TensorFlow-based solution could help urban municipalities significantly improve their road maintenance and repair procedures, ultimately leading to safer and smoother road conditions for everyone.
+
+## Dataset
+
+[Kaggle][1]
+[Another Kaggle Dataset][2]
+[International Dataset][3]
+
+[1]: https://www.kaggle.com/datasets/sovitrath/road-pothole-images-for-pothole-detection "Location 1 on Kaggle"
+[2]: https://www.kaggle.com/datasets/chitholian/annotated-potholes-dataset "Location 2 on Kaggle"
+[3]: https://figshare.com/articles/dataset/RDD2022_-_The_multi-national_Road_Damage_Dataset_released_through_CRDDC_2022/21431547 "RDD2022 - The multi-national Road Damage Dataset released through CRDDC'2022"
