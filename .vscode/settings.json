@@ -4,6 +4,7 @@
         "./src/visualization",
         "./src/data",
         "./src/data",
-        "./src/archive"
+        "./src/archive",
+        "./src/models"
     ]
 }

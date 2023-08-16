@@ -11,7 +11,7 @@ Returns:
 """
 
 import pandas as pd
-
+import PIL.Image as Image
 
 class Preprocessor:
     """
@@ -95,3 +95,22 @@ class Preprocessor:
             ]
         )
         return all_data
+
+    # Load and preprocess data
+    def load_data(self, json_file, img_dir):
+        df = pd.read_json(json_file, lines=True)
+        images = []
+        masks = []
+        for _, row in df.iterrows():
+            img_path = os.path.join(img_dir, row["image_path"])
+            img = Image.open(img_path).resize((128, 128))
+            img_array = np.array(img) / 255.0  # Normalize
+            images.append(img_array)
+
+            mask = np.zeros((img.height, img.width))
+            for box in row["boxes"]:
+                x, y, w, h = box["x"], box["y"], box["width"], box["height"]
+                mask[y : y + h, x : x + w] = 1
+            masks.append(mask)
+
+        return np.array(images), np.array(masks)
