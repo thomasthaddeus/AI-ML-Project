@@ -31,6 +31,7 @@ def validate_model(model, X_test, y_test):
     """
     loss, accuracy = model.evaluate(X_test, y_test)
     print(f"Test Accuracy: {accuracy * 100:.2f}%")
+    print(f"Test Loss: {loss:.4f}")
     return accuracy
 
 

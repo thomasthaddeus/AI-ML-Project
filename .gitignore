@@ -168,3 +168,6 @@ Dockerfile.*
 
 data/external
 data/processed
+
+!data/processed/ds01
+!data/processed/ds02

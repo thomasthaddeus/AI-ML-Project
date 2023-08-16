@@ -15,7 +15,7 @@ Returns:
 from keras.layers import Conv2D, MaxPooling2D, Flatten, Dense
 from keras.models import Sequential
 from keras.optimizers import Adam
-
+from keras import preprocessing
 
 def design_model():
     """
@@ -83,3 +83,12 @@ def build_model(model, X_train, y_train, X_val, y_val):
         validation_data=(X_val, y_val)
     )
     return model, history
+
+# Data augmentation layer
+data_augmentation = Sequential(
+    [
+        preprocessing.RandomFlip("horizontal"),
+        preprocessing.RandomRotation(0.1),
+        preprocessing.RandomZoom(0.1),
+    ]
+)
