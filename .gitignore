@@ -168,4 +168,3 @@ Dockerfile.*
 
 data/external
 data/processed/img
-src/archive
