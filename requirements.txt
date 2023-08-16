@@ -8,6 +8,8 @@ pillow
 scikit-learn
 tensorflow
 keras
-torch
-torchvision
+#torch
+#torchvision
 seaborn
+opencv-python
+scikit-image
