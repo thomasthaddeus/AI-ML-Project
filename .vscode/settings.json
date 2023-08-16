@@ -3,6 +3,7 @@
         "./src/features",
         "./src/visualization",
         "./src/data",
-        "./src/data"
+        "./src/data",
+        "./src/archive"
     ]
 }

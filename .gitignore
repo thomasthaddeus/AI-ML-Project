@@ -167,4 +167,4 @@ cython_debug/
 Dockerfile.*
 
 data/external
-data/processed/img
+data/processed
