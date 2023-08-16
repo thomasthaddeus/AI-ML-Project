@@ -166,5 +166,5 @@ cython_debug/
 # Docker
 Dockerfile.*
 
-
-data/
+data/external
+data/processed/img
