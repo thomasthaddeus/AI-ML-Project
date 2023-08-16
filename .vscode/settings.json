@@ -6,5 +6,13 @@
         "./src/data",
         "./src/archive",
         "./src/models"
-    ]
+    ],
+    "explorer.fileNesting.enabled": true,
+    "search.useGlobalIgnoreFiles": true,
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.importFormat": "relative",
+    "markdown.preview.typographer": true,
+    "evenBetterToml.formatter.allowedBlankLines": 3,
+    "python.createEnvironment.contentButton": "show",
+    "code-runner.saveFileBeforeRun": true
 }

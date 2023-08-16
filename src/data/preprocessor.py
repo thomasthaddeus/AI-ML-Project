@@ -98,6 +98,18 @@ class Preprocessor:
 
     # Load and preprocess data
     def load_data(self, json_file, img_dir):
+        """
+        load_data _summary_
+
+        _extended_summary_
+
+        Args:
+            json_file (_type_): _description_
+            img_dir (_type_): _description_
+
+        Returns:
+            _type_: _description_
+        """
         df = pd.read_json(json_file, lines=True)
         images = []
         masks = []

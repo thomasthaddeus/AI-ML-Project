@@ -13,9 +13,9 @@ Returns:
 # features = extractor.extract_all()
 """
 
+from skimage.feature import local_binary_pattern, hog
 import cv2
 import numpy as np
-from skimage.feature import local_binary_pattern, hog
 
 
 class FeatureExtractor:
@@ -28,7 +28,7 @@ class FeatureExtractor:
     single vector.
     """
     def __init__(self, image):
-        self.image = cv2.cvtColor(
+        self.image = cv2.cvtColorTwoPlane(
             image, cv2.COLOR_BGR2GRAY
         )  # Convert to grayscale for some features
 

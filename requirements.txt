@@ -1,15 +1,17 @@
+
 # Generic Computer Vision Libraries
-numpy
-scipy
-matplotlib
-pandas
-opencv-python
-pillow
-scikit-learn
-tensorflow
-keras
 #torch
 #torchvision
-seaborn
+
+configparser
+keras
+matplotlib
+numpy
 opencv-python
+pandas
+pillow
 scikit-image
+scikit-learn
+scipy
+seaborn
+tensorflow
