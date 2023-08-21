@@ -14,7 +14,7 @@ Returns:
 import numpy as np
 
 
-def validate_model(model, X_test, y_test):
+def validate_model(model, X_test, y_test): # pylint: disable=C0103
     """
     Validate the performance of a trained model on test data.
 
@@ -35,7 +35,7 @@ def validate_model(model, X_test, y_test):
     return accuracy
 
 
-def make_predictions(model, X_new):
+def make_predictions(model, X_new): # pylint: disable=C0103
     """
     Make predictions on new, unseen data using the trained model.
 

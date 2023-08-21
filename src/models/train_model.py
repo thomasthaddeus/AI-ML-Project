@@ -16,7 +16,6 @@ from keras.layers import Conv2D, MaxPooling2D, Flatten, Dense
 from keras.models import Sequential
 from keras.optimizers import Adam
 
-
 def design_model():
     """
     Design a convolutional neural network (CNN) for binary image classification.
@@ -30,7 +29,12 @@ def design_model():
         keras.models.Model: A Keras model with the defined CNN architecture.
     """
     model = Sequential([
-        Conv2D(32, (3, 3), activation='relu', input_shape=(128, 128, 3)),
+        Conv2D(
+            32,
+            (3, 3),
+            activation='relu',
+            input_shape=(128, 128, 3)
+        ),
         MaxPooling2D(2, 2),
         Conv2D(64, (3, 3), activation='relu'),
         MaxPooling2D(2, 2),
@@ -51,8 +55,7 @@ def my_optimizer():
     """
     return Adam(lr=0.0001)
 
-
-def build_model(model, X_train, y_train, X_val, y_val):
+def build_model(model, X_train, y_train, X_val, y_val): # pylint: disable=C0103
     """
     Compile and train the provided CNN model using the training and validation
     data.
