@@ -10,8 +10,10 @@ Returns:
     DataFrame: A Pandas DataFrame containing the preprocessed annotations.
 """
 
+import os
 import pandas as pd
 import PIL.Image as Image
+import numpy as np
 
 class Preprocessor:
     """
@@ -99,18 +101,29 @@ class Preprocessor:
     # Load and preprocess data
     def load_data(self, json_file, img_dir):
         """
-        load_data _summary_
+        Load image and mask data from the provided JSON file and image
+        directory.
 
-        _extended_summary_
+        Given a JSON file containing image annotations and an image directory,
+        this method reads each image, resizes it to 128x128, normalizes it, and
+        creates a corresponding mask based on the bounding boxes provided in
+        the JSON file.
 
         Args:
-            json_file (_type_): _description_
-            img_dir (_type_): _description_
+            json_file (str): Path to the JSON file containing image annotations.
+            img_dir (str): Directory containing the images referenced in the
+            JSON file.
 
         Returns:
-            _type_: _description_
+            tuple: A tuple containing two numpy arrays:
+            - images (numpy.ndarray): An array of normalized images of shape
+                (num_images, 128, 128, 3).
+            - masks (numpy.ndarray): An array of masks corresponding to the
+                images, where each mask is of shape (128, 128)
+                and contains binary values (0 or 1) indicating the absence or
+                presence of an object.
         """
-        df = pd.read_json(json_file, lines=True)
+        df = pd.read_json(json_file)
         images = []
         masks = []
         for _, row in df.iterrows():
@@ -121,8 +134,8 @@ class Preprocessor:
 
             mask = np.zeros((img.height, img.width))
             for box in row["boxes"]:
-                x, y, w, h = box["x"], box["y"], box["width"], box["height"]
-                mask[y : y + h, x : x + w] = 1
+                x, y, i, j = box["x"], box["y"], box["width"], box["height"]
+                mask[y : y + j, x : x + i] = 1
             masks.append(mask)
 
         return np.array(images), np.array(masks)
