@@ -9,10 +9,6 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-  # Schedule the workflow to run weekly
-  schedule:
-    - cron: '0 0 * * 0' # This runs at 00:00 every Sunday
-
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
@@ -26,30 +22,8 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # Check for recent pushes in the last week
-  check_push:
-    runs-on: ubuntu-latest
-    outputs:
-      has_push: ${{ steps.check.outputs.has_push }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Check for recent pushes
-        id: check
-        run: |
-          LAST_PUSH_DATE=$(git log -1 --pretty=format:"%cd" --date=iso)
-          CURRENT_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-          DIFF=$(( ( $(date -u -d "$CURRENT_DATE" +%s) - $(date -u -d "$LAST_PUSH_DATE" +%s) )/60/60/24 ))
-          if [ $DIFF -le 7 ]; then
-            echo "::set-output name=has_push::true"
-          else
-            echo "::set-output name=has_push::false"
-          fi
-
   # Build job
   build:
-    if: needs.check_push.outputs.has_push == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -66,7 +40,6 @@ jobs:
 
   # Deployment job
   deploy:
-    if: needs.check_push.outputs.has_push == 'true'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
