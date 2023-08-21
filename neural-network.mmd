@@ -1,0 +1,164 @@
+%%{
+  init: {
+  "theme": {
+    "nodes": {
+      "A1": {
+        "fill": "#aaf0ad",
+        "stroke": "#333",
+        "stroke-width": "12px"
+      },
+      "A2": {
+        "fill": "#f9d",
+        "stroke": "#333",
+        "stroke-width": "2px"
+      },
+      "A3": {
+        "fill": "#f9d",
+        "stroke": "#333",
+        "stroke-width": "2px"
+      },
+      "A4": {
+        "fill": "#f9d",
+        "stroke": "#333",
+        "stroke-width": "2px"
+      },
+      "A5": {
+        "fill": "#f9d",
+        "stroke": "#333",
+        "stroke-width": "2px"
+      },
+      "B1": {
+        "fill": "#fda",
+        "stroke": "#333",
+        "stroke-width": "2px"
+      },
+      "B2": {
+        "fill": "#fda",
+        "stroke": "#333",
+        "stroke-width": "2px"
+      },
+      "B3": {
+        "fill": "#fda",
+        "stroke": "#333",
+        "stroke-width": "2px"
+      },
+      "B4": {
+        "fill": "#fda",
+        "stroke": "#333",
+        "stroke-width": "2px"
+      },
+      "C1": {
+        "fill": "#ada",
+        "stroke": "#333",
+        "stroke-width": "2px"
+      },
+      "C2": {
+        "fill": "#ada",
+        "stroke": "#333",
+        "stroke-width": "2px"
+      },
+      "C3": {
+        "fill": "#ada",
+        "stroke": "#333",
+        "stroke-width": "2px"
+      },
+      "C4": {
+        "fill": "#ada",
+        "stroke": "#333",
+        "stroke-width": "2px"
+      },
+      "D1": {
+        "fill": "#fda",
+        "stroke": "#333",
+        "stroke-width": "2px"
+      },
+      "D2": {
+        "fill": "#fda",
+        "stroke": "#333",
+        "stroke-width": "2px"
+      },
+      "D3": {
+        "fill": "#fda",
+        "stroke": "#333",
+        "stroke-width": "2px"
+      },
+      "E": {
+        "fill": "#afd",
+        "stroke": "#333",
+        "stroke-width": "2px"
+      },
+      "F": {
+        "fill": "#9cf",
+        "stroke": "#333",
+        "stroke-width": "2px"
+      }
+    },
+    "edges": {
+      "default": {
+        "stroke": "#666",
+        "stroke-width": "2px",
+        "arrowhead": "normal"
+      },
+      "Weights & Biases": {
+        "stroke": "#f66",
+        "stroke-width": "2px",
+        "arrowhead": "normal",
+        "label": "Weights & Biases"
+      },
+      "Activation Function": {
+        "stroke": "#6f6",
+        "stroke-width": "2px",
+        "arrowhead": "normal",
+        "label": "Activation Function"
+      }
+    }
+  }
+}
+}%%
+
+stateDiagram
+    state "Input Layer" as A1
+    state "Input Layer" as A2
+    state "Input Layer" as A3
+    state "Input Layer" as A4
+    state "Input Layer" as A5    
+    state "Hidden Layer 1" as B1
+    state "Hidden Layer 1" as B2
+    state "Hidden Layer 1" as B3
+    state "Hidden Layer 1" as B4
+    state "Hidden Layer 2" as C1
+    state "Hidden Layer 2" as C2
+    state "Hidden Layer 2" as C3
+    state "Hidden Layer 2" as C4
+    state "Hidden Layer 3" as D1
+    state "Hidden Layer 3" as D2
+    state "Hidden Layer 3" as D3
+    state "Output Layer" as E
+    state "Final Output" as F
+
+    A1 --> B1
+    A1 --> B2
+    A3 --> B1
+    A3 --> B3 
+    A4 --> B2 : Weights & Biases
+    A4 --> B3
+    A4 --> B4
+    A5 --> B4
+    B1 --> C1 : Activation Function
+    B2 --> C1
+    B2 --> C2
+    B2 --> C3
+    B3 --> C3 
+    B3 --> C4
+    B4 --> C2
+    B4 --> C4
+    C1 --> D1
+    C2 --> D1 : Weights & Biases
+    C2 --> D3
+    C3 --> D2 
+    C4 --> D2
+    C4 --> D3
+    D1 --> E : Activation Function
+    D2 --> E : Activation Function
+    D3 --> E : Activation Function   
+    E --> F :  Final output
