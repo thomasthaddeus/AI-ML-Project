@@ -15,6 +15,7 @@ import pandas as pd
 import PIL.Image as Image
 import numpy as np
 
+
 class Preprocessor:
     """
     A utility class for preprocessing image annotations.
@@ -98,16 +99,10 @@ class Preprocessor:
         )
         return all_data
 
-    # Load and preprocess data
     def load_data(self, json_file, img_dir):
         """
         Load image and mask data from the provided JSON file and image
         directory.
-
-        Given a JSON file containing image annotations and an image directory,
-        this method reads each image, resizes it to 128x128, normalizes it, and
-        creates a corresponding mask based on the bounding boxes provided in
-        the JSON file.
 
         Args:
             json_file (str): Path to the JSON file containing image annotations.
@@ -123,10 +118,11 @@ class Preprocessor:
                 and contains binary values (0 or 1) indicating the absence or
                 presence of an object.
         """
-        df = pd.read_json(json_file)
+        df = pd.concat(pd.read_json(json_file, lines=True))
         images = []
         masks = []
-        for _, row in df.iterrows():
+
+        def process_row(row):
             img_path = os.path.join(img_dir, row["image_path"])
             img = Image.open(img_path).resize((128, 128))
             img_array = np.array(img) / 255.0  # Normalize
@@ -137,5 +133,7 @@ class Preprocessor:
                 x, y, i, j = box["x"], box["y"], box["width"], box["height"]
                 mask[y : y + j, x : x + i] = 1
             masks.append(mask)
+
+        df.apply(process_row, axis=1)
 
         return np.array(images), np.array(masks)
