@@ -32,6 +32,9 @@ jobs:
     outputs:
       has_push: ${{ steps.check.outputs.has_push }}
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
       - name: Check for recent pushes
         id: check
         run: |
