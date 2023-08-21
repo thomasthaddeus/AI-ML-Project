@@ -1,0 +1,28 @@
+<annotation>
+  <folder>images</folder>
+  <filename>Norway_002020.jpg</filename>
+  <size>
+    <width>4040</width>
+    <height>2035</height>
+    <depth />
+  </size>
+  <segmented>0</segmented>
+  <object>
+    <name>D10</name>
+    <truncated>0</truncated>
+    <occluded>0</occluded>
+    <difficult>0</difficult>
+    <bndbox>
+      <xmin>10.93</xmin>
+      <ymin>1500.0</ymin>
+      <xmax>857.0</xmax>
+      <ymax>1873.61</ymax>
+    </bndbox>
+    <attributes>
+      <attribute>
+        <name>rotation</name>
+        <value>0.0</value>
+      </attribute>
+    </attributes>
+  </object>
+</annotation>

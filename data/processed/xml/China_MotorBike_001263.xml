@@ -1,0 +1,34 @@
+<annotation>
+	<folder>images</folder>
+	<filename>China_MotorBike_001263.jpg</filename>
+	<size>
+		<width>512</width>
+		<height>512</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>D10</name>
+		<pose>Unspecified</pose>
+		<truncated>1</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>1</xmin>
+			<ymin>258</ymin>
+			<xmax>444</xmax>
+			<ymax>328</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>D10</name>
+		<pose>Unspecified</pose>
+		<truncated>1</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>1</xmin>
+			<ymin>353</ymin>
+			<xmax>74</xmax>
+			<ymax>387</ymax>
+		</bndbox>
+	</object>
+</annotation>

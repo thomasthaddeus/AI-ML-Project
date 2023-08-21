@@ -1,0 +1,34 @@
+<annotation>
+  <folder>images</folder>
+  <filename>United_States_000575.jpg</filename>
+  <size>
+    <width>640</width>
+    <height>640</height>
+    <depth>3</depth>
+  </size>
+  <segmented>0</segmented>
+  <object>
+    <name>D00</name>
+    <pose>Unspecified</pose>
+    <truncated>0</truncated>
+    <difficult>0</difficult>
+    <bndbox>
+      <xmin>257</xmin>
+      <ymin>412</ymin>
+      <xmax>319</xmax>
+      <ymax>640</ymax>
+    </bndbox>
+  </object>
+  <object>
+    <name>D00</name>
+    <pose>Unspecified</pose>
+    <truncated>0</truncated>
+    <difficult>0</difficult>
+    <bndbox>
+      <xmin>0</xmin>
+      <ymin>490</ymin>
+      <xmax>78</xmax>
+      <ymax>614</ymax>
+    </bndbox>
+  </object>
+</annotation>

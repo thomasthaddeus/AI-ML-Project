@@ -1,0 +1,28 @@
+<annotation>
+  <folder>images</folder>
+  <filename>Norway_007735.jpg</filename>
+  <size>
+    <width>4040</width>
+    <height>2035</height>
+    <depth />
+  </size>
+  <segmented>0</segmented>
+  <object>
+    <name>D10</name>
+    <truncated>0</truncated>
+    <occluded>0</occluded>
+    <difficult>0</difficult>
+    <bndbox>
+      <xmin>917.89</xmin>
+      <ymin>1397.96</ymin>
+      <xmax>1068.0</xmax>
+      <ymax>1419.7</ymax>
+    </bndbox>
+    <attributes>
+      <attribute>
+        <name>rotation</name>
+        <value>0.0</value>
+      </attribute>
+    </attributes>
+  </object>
+</annotation>

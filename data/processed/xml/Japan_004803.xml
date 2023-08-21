@@ -1,0 +1,36 @@
+<annotation>
+  <folder>images</folder>
+  <filename>Japan_004803.jpg</filename>
+  <size>
+    <depth>3</depth>
+    <width>600</width>
+    <height>600</height>
+  </size>
+  <object>
+    <name>D50</name>
+    <bndbox>
+      <xmin>422</xmin>
+      <ymin>145</ymin>
+      <xmax>502</xmax>
+      <ymax>164</ymax>
+    </bndbox>
+  </object>
+  <object>
+    <name>D00</name>
+    <bndbox>
+      <xmin>433</xmin>
+      <ymin>214</ymin>
+      <xmax>493</xmax>
+      <ymax>310</ymax>
+    </bndbox>
+  </object>
+  <object>
+    <name>D00</name>
+    <bndbox>
+      <xmin>359</xmin>
+      <ymin>43</ymin>
+      <xmax>520</xmax>
+      <ymax>144</ymax>
+    </bndbox>
+  </object>
+</annotation>

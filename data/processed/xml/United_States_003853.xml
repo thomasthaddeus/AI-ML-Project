@@ -1,0 +1,34 @@
+<annotation>
+  <folder>images</folder>
+  <filename>United_States_003853.jpg</filename>
+  <size>
+    <width>640</width>
+    <height>640</height>
+    <depth>3</depth>
+  </size>
+  <segmented>0</segmented>
+  <object>
+    <name>D00</name>
+    <pose>Unspecified</pose>
+    <truncated>0</truncated>
+    <difficult>0</difficult>
+    <bndbox>
+      <xmin>346</xmin>
+      <ymin>456</ymin>
+      <xmax>381</xmax>
+      <ymax>552</ymax>
+    </bndbox>
+  </object>
+  <object>
+    <name>D20</name>
+    <pose>Unspecified</pose>
+    <truncated>0</truncated>
+    <difficult>0</difficult>
+    <bndbox>
+      <xmin>289</xmin>
+      <ymin>452</ymin>
+      <xmax>391</xmax>
+      <ymax>548</ymax>
+    </bndbox>
+  </object>
+</annotation>

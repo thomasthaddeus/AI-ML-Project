@@ -1,0 +1,22 @@
+<annotation>
+  <folder>images</folder>
+  <filename>United_States_002411.jpg</filename>
+  <size>
+    <width>640</width>
+    <height>640</height>
+    <depth>3</depth>
+  </size>
+  <segmented>0</segmented>
+  <object>
+    <name>D00</name>
+    <pose>Unspecified</pose>
+    <truncated>0</truncated>
+    <difficult>0</difficult>
+    <bndbox>
+      <xmin>275</xmin>
+      <ymin>410</ymin>
+      <xmax>341</xmax>
+      <ymax>533</ymax>
+    </bndbox>
+  </object>
+</annotation>

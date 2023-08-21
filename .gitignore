@@ -168,8 +168,9 @@ Dockerfile.*
 
 data/external
 data/processed/ds*
-
-!data/processed/json
+data/processed/trn*
+data/processed/test
+data/json
 src/.conf
 .gitignore
 src/.conf/config.ini
