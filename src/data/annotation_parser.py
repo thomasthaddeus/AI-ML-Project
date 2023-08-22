@@ -35,7 +35,6 @@ import xml.etree.ElementTree as ET
 import configparser
 import pandas as pd
 
-
 class AnnotationParser:
     """
     A utility class for parsing image annotations from various formats.
@@ -71,16 +70,14 @@ class AnnotationParser:
         DataFrame: A Pandas DataFrame containing the parsed annotations mapped
         to their respective images.
     """
-
-
     def __init__(self):
         # Default values (can be overridden by config)
         self.OUTPUT = './data/processed/dataset2/json/annotations.json'
-        self.FOLDER_IN = './data/processed/dataset2/img'
-        self.DS3_TRN = "./data/processed/ds3_trn.txt"
-        self.DS3_TST = "./data/processed/ds3_tst.txt"
-        self.DS4_TRN = "./data/processed/ds4_trn.txt"
-        self.DS4_TST = "./data/processed/ds4_tst.txt"
+        self.FOLDER_IN = './data/'
+        self.DS3_TRN = "./data/processed/"
+        self.DS3_TST = "./data/processed/"
+        self.DS4_TRN = "./data/processed/"
+        self.DS4_TST = "./data/processed/"
         self.XFILE_DIR = './data/processed/xml_data/'
 
     def load_config(self, config_file):
@@ -115,92 +112,6 @@ class AnnotationParser:
             df.to_json(json_filename, orient="records", lines=True)
             print(f"Processed {dataset} and saved to {json_filename}")
 
-    @staticmethod
-    def from_txt(txt_file):
-        """
-        Parse a YOLO-formatted .txt file and extract the annotation data.
-
-        Given a path to a .txt file containing YOLO-formatted annotations, this
-        function reads the file and extracts the class ID, bounding box
-        coordinates (center x, center y, width, height), and returns them in a
-        dictionary format.
-
-        Args:
-            txt_file (str): Path to the YOLO-formatted annotation .txt file.
-
-        Returns:
-            dict: A dictionary containing the parsed annotation data.
-        """
-        with open(txt_file, mode='r', encoding='utf-8') as f:
-            data = f.readline().strip().split()
-        return {
-            'class_id': int(data[0]),
-            'x_center': float(data[1]),
-            'y_center': float(data[2]),
-            'width': float(data[3]),
-            'height': float(data[4])
-        }
-
-    def txt_to_dataframe(self, dataset_dir):
-        """
-        Parse a directory containing images and their annotations to create a
-        DataFrame.
-
-        This function iterates over all the images in the specified directory,
-        reads their associated YOLO-formatted .txt annotation files, and
-        aggregates the annotations into a structured Pandas DataFrame.
-
-        Args:
-            dataset_dir (str): Directory containing the images and their
-            associated .txt annotation files.
-
-        Returns:
-            DataFrame: A Pandas DataFrame containing the annotations mapped to
-            their respective images.
-        """
-        rows = []
-        for filename in os.listdir(dataset_dir):
-            if filename.endswith('.jpg'):
-                txt_filename = filename.replace('.jpg', '.txt')
-                txt_filepath = os.path.join(dataset_dir, txt_filename)
-                if os.path.exists(txt_filepath):
-                    annotation = self.from_txt(txt_filepath)
-                    annotation['image'] = filename
-                    rows.append(annotation)
-        return pd.DataFrame(rows)
-
-
-    @staticmethod
-    def from_line(line):
-        """
-        Parse a single line from the dataset to extract image path and bounding
-        boxes.
-
-        Given a line from the dataset file, this function extracts the image
-        path, adjusts its file extension from .bmp to .jpg, and extracts the
-        bounding box annotations associated with the image.
-
-        Args:
-            line (str): A line from the dataset file.
-
-        Returns:
-            dict: A dictionary containing the image path and its associated
-            bounding box annotations.
-        """
-        parts = line.strip().split()
-        image_path = parts[0].replace(".bmp", ".jpg")
-        num_boxes = int(parts[1])
-        boxes = [
-            {
-                "x": int(parts[i]),
-                "y": int(parts[i + 1]),
-                "width": int(parts[i + 2]),
-                "height": int(parts[i + 3]),
-            }
-            for i in range(2, 2 + 4 * num_boxes, 4)
-        ]
-        return {"image_path": image_path, "boxes": boxes}
-
     def line_to_dataframe(self, dataset):
         """
         Read the dataset file and return a DataFrame with image paths and
@@ -224,62 +135,103 @@ class AnnotationParser:
         return pd.DataFrame(data)
 
     @staticmethod
-    def from_xml(xml_file):
-        """
-        Convert a given XML file to a Pandas DataFrame.
-
-        This function reads an XML file, typically in the PASCAL VOC format, and
-        extracts the annotations for each object present in the corresponding
-        image. The annotations include the object's class, bounding box
-        coordinates, and the image's dimensions.
-
-        Args:
-            xml_file (str): Path to the XML file to be parsed.
-
-        Returns:
-            DataFrame: A Pandas DataFrame containing the annotations from the
-            XML file.
-        """
-        tree = ET.parse(xml_file)
-        root = tree.getroot()
-        filename = root.find('filename').text
-        rows = []
+    def xml_to_annotations(xml_string):
+        """Convert a given XML string to the consistent annotation format."""
+        root = ET.fromstring(xml_string)
+        image_path = root.find('path').text if root.find('path') is not None else root.find('filename').text
+        width = float(root.find('size/width').text)
+        height = float(root.find('size/height').text)
+        annotations = []
         for obj in root.findall('object'):
-            row = {
-                'filename': filename,
-                'width': int(root.find('size/width').text),
-                'height': int(root.find('size/height').text),
+            annotation = {
                 'class': obj.find('name').text,
-                'xmin': int(obj.find('bndbox/xmin').text),
-                'ymin': int(obj.find('bndbox/ymin').text),
-                'xmax': int(obj.find('bndbox/xmax').text),
-                'ymax': int(obj.find('bndbox/ymax').text)
+                'xmin': float(obj.find('bndbox/xmin').text),
+                'ymin': float(obj.find('bndbox/ymin').text),
+                'xmax': float(obj.find('bndbox/xmax').text),
+                'ymax': float(obj.find('bndbox/ymax').text)
             }
-            rows.append(row)
-        return pd.DataFrame(rows)
+            annotations.append(annotation)
+        return {
+            'image_path': image_path,
+            'width': width,
+            'height': height,
+            'annotations': annotations
+        }
 
-    def xml_to_dataframe(self, xml_dir):
-        """
-        Parse all XML files in a given directory and aggregate them into a
-        single DataFrame.
+    def parse_yolo_line(self, line, image_dir):
+        """Parse a YOLO-formatted line and extract the annotation data."""
+        parts = line.strip().split()
+        image_path = os.path.join(image_dir, parts[0])
+        width = 720
+        height = 720
+        annotations = [{
+            'class': 'pothole',
+            'xmin': int((float(parts[1]) - float(parts[3])/2) * width),
+            'ymin': int((float(parts[2]) - float(parts[4])/2) * height),
+            'xmax': int((float(parts[1]) + float(parts[3])/2) * width),
+            'ymax': int((float(parts[2]) + float(parts[4])/2) * height)
+        }]
+        return {
+            'image_path': image_path,
+            'width': width,
+            'height': height,
+            'annotations': annotations
+        }
 
-        This function iterates over all XML files in the specified directory,
-        converts each file to a DataFrame using the xml_to_dataframe function,
-        and then aggregates them into a single DataFrame.
+    def parse_dataset_line(self, line):
+        """Parse a dataset line and extract the annotation data."""
+        parts = line.strip().split()
+        image_path = parts[0]
+        num_boxes = int(parts[1])
+        annotations = []
+        for i in range(2, 2 + 4 * num_boxes, 4):
+            annotation = {
+                'class': 'pothole',  # Placeholder, as class is not provided in this format
+                'xmin': float(parts[i]),
+                'ymin': float(parts[i+1]),
+                'xmax': float(parts[i] + parts[i+2]),
+                'ymax': float(parts[i+1] + parts[i+3])
+            }
+            annotations.append(annotation)
+        return {
+            'image_path': image_path,
+            'annotations': annotations
+        }
 
-        Args:
-            xml_dir (str): Directory containing the XML files to be parsed.
+    def process_xml_directory(self, xml_directory):
+        """Process all XML files in a directory and return their annotations."""
+        all_xml_annotations = []
+        for filename in os.listdir(xml_directory):
+            if filename.endswith('.xml'):
+                xml_file_path = os.path.join(xml_directory, filename)
+                with open(xml_file_path, 'r') as f:
+                    xml_data = f.read()
+                all_xml_annotations.append(self.xml_to_annotations(xml_data))
+        return all_xml_annotations
 
-        Returns:
-            DataFrame: A Pandas DataFrame containing the aggregated annotations
-            from all XML files.
-        """
-        all_data = []
-        for i in os.listdir(xml_dir):
-            if i.endswith('.xml'):
-                df = self.from_xml(os.path.join(xml_dir, i))
-                all_data.append(df)
-        if not all_data:
-            print("No XML files found in the specified directory.")
-            return
-        return pd.concat(all_data, ignore_index=True)
+    def process_yolo_directory(self, yolo_directory, image_dir):
+        """Process all YOLO-formatted files in a directory and return their annotations."""
+        all_yolo_annotations = []
+        for yolo_file in os.listdir(yolo_directory):
+            if yolo_file.endswith('.txt'):
+                yolo_file_path = os.path.join(yolo_directory, yolo_file)
+                with open(yolo_file_path, 'r') as f:
+                    lines = f.readlines()
+                for line in lines:
+                    all_yolo_annotations.append(self.parse_yolo_line(line, image_dir))
+        return all_yolo_annotations
+
+    def process_all_files(self, xml_directory='data/processed/xml', yolo_directory='data/processed/txt', image_dir='data/processed/img'):
+        """Process all XML and YOLO-formatted files and save the results to a JSON file."""
+        all_xml_annotations = self.process_xml_directory(xml_directory)
+        all_yolo_annotations = self.process_yolo_directory(yolo_directory, image_dir)
+
+        # Convert to DataFrame and save to JSON
+        df_xml = pd.DataFrame(all_xml_annotations)
+        df_yolo = pd.DataFrame(all_yolo_annotations)
+
+        # Combine both DataFrames
+        combined_df = pd.concat([df_xml, df_yolo], ignore_index=True)
+
+        # Save to JSON
+        combined_df.to_json(self.OUTPUT, orient='records', lines=True)
