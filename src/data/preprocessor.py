@@ -202,7 +202,7 @@ class DatasetPreprocessor:
         """
         return df
 
-    def preprocess_dataset3_4(self, data: dict, img_width: int, img_height: int) -> pd.DataFrame:
+    def prep2(self, data: dict, img_width: int, img_height: int) -> pd.DataFrame:
         """
         Preprocess the third and fourth datasets by converting bounding box
         coordinates to center coordinates and width-height format. Also normalizes

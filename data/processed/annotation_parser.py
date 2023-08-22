@@ -72,12 +72,10 @@ class AnnotationParser:
     """
     def __init__(self):
         # Default values (can be overridden by config)
-        self.OUTPUT = './data/processed/dataset2/json/annotations.json'
-        self.FOLDER_IN = './data/'
-        self.DS3_TRN = "./data/processed/"
-        self.DS3_TST = "./data/processed/"
-        self.DS4_TRN = "./data/processed/"
-        self.DS4_TST = "./data/processed/"
+        self.OUTPUT = './data/processed/annotations.json'
+        self.FOLDER_IN = './data/processed'
+        self.DS3_TRN = "./data/processed/trn"
+        self.DS3_TST = "./data/processed/test"
         self.XFILE_DIR = './data/processed/xml_data/'
 
     def load_config(self, config_file):
