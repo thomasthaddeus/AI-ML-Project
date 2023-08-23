@@ -76,8 +76,3 @@ class ModifiedAnnotationParser:
             }
         else:
             return {}
-
-    # ... [Other methods remain unchanged] ...
-
-# Note: I've made the necessary changes in the class. Some methods like `parse_dataset_line` have been removed as they were unused.
-# The actual implementation of `from_line` should be added based on the format of the lines in your datasets.
