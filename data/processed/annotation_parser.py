@@ -35,6 +35,7 @@ import xml.etree.ElementTree as ET
 import configparser
 import pandas as pd
 
+
 class AnnotationParser:
     """
     A utility class for parsing image annotations from various formats.
@@ -70,13 +71,11 @@ class AnnotationParser:
         DataFrame: A Pandas DataFrame containing the parsed annotations mapped
         to their respective images.
     """
-    def __init__(self):
-        # Default values (can be overridden by config)
-        self.OUTPUT = './data/processed/annotations.json'
-        self.FOLDER_IN = './data/processed'
-        self.DS3_TRN = "./data/processed/trn"
-        self.DS3_TST = "./data/processed/test"
-        self.XFILE_DIR = './data/processed/xml_data/'
+    OUTPUT = './data/processed/annotations.json'
+    DS_TRAIN = "./data/processed/trn"
+    DS_TEST = "./data/processed/test"
+    XFILE_DIR = './data/processed/xml_data/'
+
 
     def load_config(self, config_file):
         """
@@ -101,7 +100,7 @@ class AnnotationParser:
         dataset, creates a DataFrame of annotations, and then exports the
         DataFrame to a JSON file.
         """
-        datasets = [self.DS3_TRN, self.DS3_TST, self.DS4_TRN, self.DS4_TST]
+        datasets = [DS_TRAIN, DS_TEST]
         for dataset in datasets:
             df = self.line_to_dataframe(dataset)
             json_filename = dataset.replace(".txt", ".json").replace(
@@ -202,7 +201,7 @@ class AnnotationParser:
         for filename in os.listdir(xml_directory):
             if filename.endswith('.xml'):
                 xml_file_path = os.path.join(xml_directory, filename)
-                with open(xml_file_path, 'r') as f:
+                with open(file=xml_file_path, mode='r', encoding='utf-8') as f:
                     xml_data = f.read()
                 all_xml_annotations.append(self.xml_to_annotations(xml_data))
         return all_xml_annotations
@@ -211,15 +210,15 @@ class AnnotationParser:
         """Process all YOLO-formatted files in a directory and return their annotations."""
         all_yolo_annotations = []
         for yolo_file in os.listdir(yolo_directory):
-            if yolo_file.endswith('.txt'):
+            if yolo_file.endswith('.txt' or '.csv'):
                 yolo_file_path = os.path.join(yolo_directory, yolo_file)
-                with open(yolo_file_path, 'r') as f:
+                with open(file=yolo_file_path, mode='r', encoding='utf-8') as f:
                     lines = f.readlines()
                 for line in lines:
                     all_yolo_annotations.append(self.parse_yolo_line(line, image_dir))
         return all_yolo_annotations
 
-    def process_all_files(self, xml_directory='data/processed/xml', yolo_directory='data/processed/txt', image_dir='data/processed/img'):
+    def process_all_files(self, xml_directory='data/processed/xml', yolo_directory='data/processed/txt', image_dir='data/processed/trn'):
         """Process all XML and YOLO-formatted files and save the results to a JSON file."""
         all_xml_annotations = self.process_xml_directory(xml_directory)
         all_yolo_annotations = self.process_yolo_directory(yolo_directory, image_dir)
@@ -233,3 +232,6 @@ class AnnotationParser:
 
         # Save to JSON
         combined_df.to_json(self.OUTPUT, orient='records', lines=True)
+
+process = AnnotationParser()
+process.process_all_files()
