@@ -5,7 +5,8 @@
         "./src/data",
         "./src/data",
         "./src/archive",
-        "./src/models"
+        "./src/models",
+        "./src/model"
     ],
     "explorer.fileNesting.enabled": true,
     "search.useGlobalIgnoreFiles": true,
